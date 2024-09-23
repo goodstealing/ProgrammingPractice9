@@ -20,10 +20,11 @@ namespace Module1
                 var s = Math.PI * radius; // Формула площади круга по радиусу
 
                 Console.WriteLine($"Площадь круга: {s}");
+                Console.CursorVisible = false;
+
             }
             else
             {
-                Console.CursorVisible = false;
                 Console.WriteLine("/Введено некорректное значение, введите действительное число./");
             }
         }

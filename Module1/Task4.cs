@@ -7,7 +7,7 @@ namespace Module1
         public static void Execute()
         {
             Console.Clear();
-            //Console.CursorVisible = true;
+            Console.CursorVisible = false;
 
             int[] arr_numbers = GenRandomArr(20);
 
