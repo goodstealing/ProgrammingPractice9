@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Module1_2
 {
@@ -13,54 +9,107 @@ namespace Module1_2
             Console.Clear();
             Console.CursorVisible = true;
 
-            // Запрашивает ввод строк у пользователя и проверяет, является ли вторая строка подстрокой первой
-            string firstString = InputString("Введите первую строку: ");
-            string secondString = InputString("Введите вторую строку: ");
+            // Ввод значения K с клавиатуры
+            int K = GetNumberOfPrimes();
 
-            // Проверка, является ли вторая строка подстрокой первой
-            bool isSubstring = CheckIfSubstring(firstString, secondString);
-            PrintResult(isSubstring, secondString);
+            // Вычисление первых K простых чисел
+            int[] primes = CalculatePrimes(K);
+
+            // Вывод простых чисел по 10 на строке
+            PrintPrimes(primes);
         }
 
         /// <summary>
-        /// Метод для ввода строки пользователем
+        /// Метод для ввода количества простых чисел (K), которые нужно найти.
         /// </summary>
-        /// <param name="prompt">Сообщение, которое будет отображено перед вводом</param>
-        /// <returns>Возвращает введённую строку</returns>
-        private static string InputString(string prompt)
+        /// <returns>Целое число K, введённое пользователем</returns>
+        private static int GetNumberOfPrimes()
         {
-            Console.Write(prompt);
-            return Console.ReadLine();
+            int K;
+            Console.Write("Введите количество простых чисел, которое нужно найти: ");
+            // Проверка на корректность ввода (K должно быть положительным числом)
+            while (!int.TryParse(Console.ReadLine(), out K) || K <= 0)
+            {
+                Console.WriteLine("Ошибка! Введите корректное положительное число.");
+            }
+            return K;
         }
 
         /// <summary>
-        /// Метод для проверки, является ли одна строка подстрокой другой
+        /// Метод для вычисления первых K простых чисел.
         /// </summary>
-        /// <param name="firstString">Первая строка, в которой ищем</param>
-        /// <param name="secondString">Вторая строка, которую ищем</param>
-        /// <returns>Возвращает true, если вторая строка является подстрокой первой, иначе false</returns>
-        private static bool CheckIfSubstring(string firstString, string secondString)
+        /// <param name="K">Количество простых чисел которое нужно найти</param>
+        /// <returns>Массив первых K простых чисел</returns>
+        private static int[] CalculatePrimes(int K)
         {
-            // Contains проверяет наличие подстроки в строке
-            return firstString.Contains(secondString);
+            int[] primes = new int[K]; // Массив для хранения простых чисел
+            int count = 0; // Счётчик найденных простых чисел
+            int number = 2; // Начальное число для проверки 
+
+            // Пока не найдено K простых чисел
+            while (count < K)
+            {
+                // Является ли простым числом
+                if (IsPrime(number))
+                {
+                    primes[count] = number; 
+                    count++; 
+                }
+                number++; // Переходим к следующему числу
+            }
+
+            return primes;
         }
 
         /// <summary>
-        /// Метод для вывода результата
+        /// Метод для проверки, является ли заданное число простым.
+        /// Простое число делится только на себя и на 1.
         /// </summary>
-        /// <param name="isSubstring">Результат проверки, является ли подстрока частью строки</param>
-        /// <param name="secondString">Строка, которую проверяли как подстроку</param>
-        private static void PrintResult(bool isSubstring, string secondString)
+        /// <param name="number">Число, которое нужно проверить</param>
+        /// <returns>True, если число простое, иначе False</returns>
+        private static bool IsPrime(int number)
+        {
+            if (number < 2)
+                return false;
+
+            // Проверка делимости числа на все числа от 2 до его квадратного корня
+            for (int i = 2; i * i <= number; i++)
+            {
+                if (number % i == 0)
+                    return false; // Если делится без остатка число не простое
+            }
+
+            return true; // Не простое число
+        }
+
+        /// <summary>
+        /// Метод для вывода простых чисел по 10 на строке.
+        /// </summary>
+        /// <param name="primes">Массив простых чисел для вывода</param>
+        private static void PrintPrimes(int[] primes)
         {
             Console.CursorVisible = false;
+            // Переменная для отслеживания количества чисел, выведенных на одной строке
+            int countInLine = 0;
 
-            if (isSubstring)
+            foreach (int prime in primes)
             {
-                Console.WriteLine($"Строка \"{secondString}\" является подстрокой.");
+                // Выводим простое число с отступом в одну строку
+                Console.Write($"{prime,5} "); // {5} для аккуратного форматирования вывода
+
+                countInLine++;
+
+                // После каждого 10-го числа перенос на новую строку
+                if (countInLine == 10)
+                {
+                    Console.WriteLine(); 
+                    countInLine = 0; 
+                }
             }
-            else
+
+            if (countInLine != 0)
             {
-                Console.WriteLine($"Строка \"{secondString}\" не является подстрокой.");
+                Console.WriteLine();
             }
         }
     }

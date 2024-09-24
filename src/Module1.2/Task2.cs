@@ -9,53 +9,64 @@ namespace Module1_2
             Console.Clear();
             Console.CursorVisible = true;
 
-            double number1 = InputNumber("Введите первое число: ");
-            double number2 = InputNumber("Введите второе число: ");
-            double number3 = InputNumber("Введите третье число: ");
+            int[] array = { 3, 7, 12, 5, 2, 8, 1, 15, 4, 10 };
+            Console.WriteLine("Исходный массив:");
+            PrintArray(array);
 
-            // Вычисление среднего арифметического
-            double average = CalculateAverage(number1, number2, number3);
-            DisplayResult(average);
-        }
+            
+            Console.Write("Введите целое число для замены максимального элемента: ");
+            int inputNumber = int.Parse(Console.ReadLine());
 
-        /// <summary>
-        /// Метод для ввода числа от пользователя с проверкой корректности ввода.
-        /// </summary>
-        /// <param name="prompt">Сообщение для ввода числа</param>
-        /// <returns>Введённое число</returns>
-        private static double InputNumber(string prompt)
-        {
-            double number;
-            Console.Write(prompt); // Выводим сообщение для пользователя
-            while (!double.TryParse(Console.ReadLine(), out number)) // Проверка корректность ввода
-            {
-                Console.WriteLine("Ошибка! Введите корректное число.");
-                Console.Write(prompt); // Повторный вывод сообщения
-            }
-            return number; // Возврат введённого числа
-        }
-
-        /// <summary>
-        /// Метод для вычисления среднего арифметического трёх чисел.
-        /// </summary>
-        /// <param name="num1">Первое число</param>
-        /// <param name="num2">Второе число</param>
-        /// <param name="num3">Третье число</param>
-        /// <returns>Среднее арифметическое трёх чисел</returns>
-        private static double CalculateAverage(double num1, double num2, double num3)
-        {
-            return (num1 + num2 + num3) / 3; // Формула среднего арифметического
-        }
-
-        /// <summary>
-        /// Метод для вывода результата среднего арифметического на экран.
-        /// </summary>
-        /// <param name="average">Среднее арифметическое</param>
-        private static void DisplayResult(double average)
-        {
             Console.CursorVisible = false;
-            Console.WriteLine($"Среднее арифметическое введённых чисел: {average:F2}");
-            // {F2} форматирует результат до двух знаков после запятой
+            // Замена максимального элемента введенным числом
+            ReplaceMaxElement(array, inputNumber);
+            Console.WriteLine("Массив после замены максимального элемента:");
+            PrintArray(array);
+        }
+
+        /// <summary>
+        /// Метод для вывода элементов массива на экран.
+        /// </summary>
+        /// <param name="array">Массив</param>
+        static void PrintArray(int[] array)
+        {
+            foreach (int element in array)
+            {
+                Console.Write(element + " ");
+            }
+            Console.WriteLine(); // Переход на новую строку после вывода всех элементов массива
+        }
+
+        /// <summary>
+        /// Метод для нахождения индекса максимального элемента массива.
+        /// </summary>
+        /// <param name="array">Массив</param>
+        /// <returns>Индекс максимального элемента в массиве.</returns>
+        static int FindMaxElementIndex(int[] array)
+        {
+            int maxIndex = 0;
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (array[i] > array[maxIndex])
+                {
+                    maxIndex = i; // Обновление индекса если найден больший элемент
+                }
+            }
+            return maxIndex;
+        }
+
+        /// <summary>
+        /// Метод для замены максимального элемента массива на введенное число.
+        /// </summary>
+        /// <param name="array">Массив</param>
+        /// <param name="newValue">Новое значение которым будет заменён максимальный элемент.</param>
+        static void ReplaceMaxElement(int[] array, int newValue)
+        {
+            // Нахождение индекса максимального элемента
+            int maxIndex = FindMaxElementIndex(array);
+
+            // Замена максимального элемента на введённое значение
+            array[maxIndex] = newValue;
         }
     }
 }

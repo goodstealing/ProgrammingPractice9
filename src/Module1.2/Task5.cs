@@ -13,52 +13,76 @@ namespace Module1_2
             Console.Clear();
             Console.CursorVisible = true;
 
-            PlayFizzBuzz();
+            // Ввод количества элементов массива
+            int K = GetArraySize();
+            // Генерация массива с случайными буквами русского алфавита
+            char[] randomChars = GenerateRandomCharArray(K);
+            // Создание массива, содержащего только согласные буквы
+            char[] consonantsArray = FilterConsonants(randomChars);
+
+            PrintArray("Сгенерированный массив:", randomChars);
+            PrintArray("Массив согласных букв:", consonantsArray);
         }
 
         /// <summary>
-        /// Основной метод, который выполняет логику игры FizzBuzz:
-        /// выводит числа от 1 до 100 с заменой на "Fizz", "Buzz" или "FizzBuzz".
+        /// Метод для ввода размера массива с проверкой корректности.
         /// </summary>
-        static void PlayFizzBuzz()
+        /// <returns>Размер массива</returns>
+        private static int GetArraySize()
         {
-            // Цикл для чисел от 1 до 100
-            for (int i = 1; i <= 100; i++)
+            int K;
+            Console.Write("Введите количество элементов массива K: ");
+            while (!int.TryParse(Console.ReadLine(), out K) || K <= 0)
             {
-                // Метод для определения и вывода результата для каждого числа
-                Console.WriteLine(GetFizzBuzzValue(i));
+                Console.WriteLine("Ошибка! Введите корректное положительное число для размера массива.");
             }
+            return K;
         }
 
         /// <summary>
-        /// Метод возвращает строковое значение для текущего числа:
-        /// "Fizz", если число кратно 3, "Buzz", если кратно 5,
-        /// "FizzBuzz", если кратно и 3, и 5, или само число в виде строки.
+        /// Метод для генерации массива случайных букв русского алфавита.
         /// </summary>
-        /// <param name="number">Текущее число для проверки</param>
-        /// <returns>Строка с результатом "Fizz", "Buzz", "FizzBuzz" или число как строка</returns>
-        static string GetFizzBuzzValue(int number)
+        /// <param name="size">Размер массива</param>
+        /// <returns>Массив случайных букв</returns>
+        private static char[] GenerateRandomCharArray(int size)
         {
-            // Если число делится на 3 и на 5 return "FizzBuzz"
-            if (number % 3 == 0 && number % 5 == 0)
+            char[] chars = new char[size];
+            Random random = new();
+            for (int i = 0; i < size; i++)
             {
-                return "FizzBuzz";
+                // Генерация случайной буквы русского алфавита от а до я
+                chars[i] = (char)random.Next('а', 'я' + 1);
             }
-            // Если число делится на 3 return "Fizz"
-            else if (number % 3 == 0)
+            return chars;
+        }
+
+        /// <summary>
+        /// Метод для фильтрации согласных букв из массива.
+        /// </summary>
+        /// <param name="chars">Исходный массив символов</param>
+        /// <returns>Массив согласных букв</returns>
+        private static char[] FilterConsonants(char[] chars)
+        {
+            // Определение массива согласных букв
+            char[] consonants = "бвгджзйлмнпрстфхцчшщ".ToCharArray();
+            char[] result = Array.FindAll(chars, c => Array.Exists(consonants, consonant => consonant == c));
+            return result;
+        }
+
+        /// <summary>
+        /// Метод для вывода элементов массива.
+        /// </summary>
+        /// <param name="message">Сообщение для вывода перед массивом</param>
+        /// <param name="array">Массив для вывода</param>
+        private static void PrintArray(string message, char[] array)
+        {
+            Console.CursorVisible = false;
+            Console.WriteLine(message);
+            foreach (char c in array)
             {
-                return "Fizz";
+                Console.Write(c + " ");
             }
-            // Если число делится на 5 return "Buzz"
-            else if (number % 5 == 0)
-            {
-                return "Buzz";
-            }
-            // Иначе return число
-            else
-            {
-                return number.ToString();
-            }
+            Console.WriteLine();
         }
     }
 }
