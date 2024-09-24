@@ -36,7 +36,7 @@ namespace Module1_3
         /// </summary>
         static void DisplayInstructions()
         {
-            Console.WriteLine("| Система Запуска Заданий | Вариант 2 |");
+            Console.WriteLine("| Система Запуска Заданий |");
             Console.WriteLine("| Для продолжения выберите номер задания и нажмите соответствующую клавишу |");
             Console.WriteLine("| Пример: клавиша 1 - Задание 1 | Для выхода 'Esc' |\n");
         }
