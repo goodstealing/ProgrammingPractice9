@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Module1
+namespace Module2
 {
     internal class Program
     {
