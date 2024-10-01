@@ -21,10 +21,7 @@ namespace Module2
 
     public abstract class Shape
     {
-        // Метод для расчета площади (будет переопределен в наследниках)
         public abstract double Area();
-
-        // Метод для расчета периметра (будет переопределен в наследниках)
         public abstract double Perimeter();
     }
 
