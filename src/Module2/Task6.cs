@@ -6,6 +6,9 @@ namespace Module2
     {
         public static void Execute()
         {
+            Console.Clear();
+            Console.CursorVisible = false;
+
             Car myCar = new("Toyota", "Supra", 1995, 300000);
 
             myCar.DisplayInfo();
