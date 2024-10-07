@@ -1,24 +1,17 @@
-﻿using Module3.AdditionalClasses;
-using System.Security.Cryptography;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Input;
 
-
-namespace Module3
+namespace Module3.View
 {
-    public partial class Task1 : Window
+    /// <summary>
+    /// Логика взаимодействия для Task3.xaml
+    /// </summary>
+    public partial class Task3 : Window
     {
-        public Task1()
+        public Task3()
         {
             InitializeComponent();
         }
-
-
-
-
-
 
         void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 

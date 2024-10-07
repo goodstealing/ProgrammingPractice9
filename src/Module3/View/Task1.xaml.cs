@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Module3.ViewModel;
 
-namespace Module3
+
+namespace Module3.View
 {
-    /// <summary>
-    /// Логика взаимодействия для Task5.xaml
-    /// </summary>
-    public partial class Task5 : Window
+    public partial class Task1 : Window
     {
-        public Task5()
+        public Task1()
         {
             InitializeComponent();
+            DataContext = new Task1VM();
         }
+
+
+
+
+
 
         void CloseButton_Click(object sender, RoutedEventArgs e) => Close();
 
@@ -49,13 +43,6 @@ namespace Module3
             }
         }
 
-        void OpenTask1_Click(object sender, RoutedEventArgs e)
-        {
-            Task1 task1 = new();
-            task1.Left = Left; task1.Top = Top;
-            task1.Show();
-            Hide();
-        }
 
         void OpenTask2_Click(object sender, RoutedEventArgs e)
         {
