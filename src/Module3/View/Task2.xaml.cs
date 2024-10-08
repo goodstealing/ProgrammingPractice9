@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
+
 namespace Module3.View
 {
     public partial class Task2 : Window

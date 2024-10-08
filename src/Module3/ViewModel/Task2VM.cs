@@ -1,4 +1,6 @@
-﻿using Module3.Model.Task2;
+﻿using Module3.Model;
+using Module3.Model.Task2;
+using Module3.View;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -9,6 +11,37 @@ namespace Module3.ViewModel
         private string _lastMessage;
         private string _lastCall;
         private string _lastEmail;
+        private readonly Random _random;
+        private readonly Notification _notification;
+
+
+        // Списки сообщений
+        private readonly List<string> _messages = new()
+    {
+        "Привет! Как дела?",
+        "Новое сообщение отправлено.",
+        "Не забудь проверить почту.",
+        "Как прошел твой день?",
+        "Уведомление: новое сообщение!",
+    };
+
+        private readonly List<string> _calls = new()
+        {
+        "Звонок: Входящий вызов.",
+        "Ты звонишь другу.",
+        "Новый звонок начат.",
+        "Телефонный вызов отправлен.",
+        "Внимание: новый звонок!",
+    };
+
+        private readonly List<string> _emails = new()
+    {
+        "Письмо отправлено успешно!",
+        "Проверь почту для нового письма.",
+        "Email отправлен.",
+        "Новое письмо в пути.",
+        "Сообщение отправлено по email.",
+    };
 
         public string LastMessage
         {
@@ -41,25 +74,23 @@ namespace Module3.ViewModel
         }
 
         public ICommand SendMessageCommand { get; }
-
-        private readonly Notification _notification;
+        public ICommand SendCallCommand { get; }
+        public ICommand SendEmailCommand { get; }
 
         public Task2VM()
         {
             _notification = new Notification();
+            _random = new Random();
 
-            // Регистрация обработчиков событий
+            // Подписка на события
             _notification.MessageReceived += OnMessageReceived;
             _notification.CallReceived += OnCallReceived;
             _notification.EmailReceived += OnEmailReceived;
 
             // Инициализация команды
             SendMessageCommand = new RelayCommand(SendMessage);
-
-            // Пример отправки уведомлений
-            _notification.SendMessage("Hello! You have a new message.");
-            _notification.MakeCall("Incoming call from +123456789.");
-            _notification.SendEmail("New email received from example@example.com.");
+            SendCallCommand = new RelayCommand(SendCall);
+            SendEmailCommand = new RelayCommand(SendEmail);
         }
 
         private void OnMessageReceived(object sender, NotificationEventArgs e)
@@ -77,38 +108,32 @@ namespace Module3.ViewModel
             LastEmail = e.Message;
         }
 
+        // Метод для отправки случайного сообщения
         private void SendMessage()
         {
-            _notification.SendMessage("Hello! New message sent.");
+            string randomMessage = _messages[_random.Next(_messages.Count)];
+            _notification.SendMessage(randomMessage);
+        }
+
+        // Метод для отправки случайного звонка
+        private void SendCall()
+        {
+            string randomCallMessage = _calls[_random.Next(_calls.Count)];
+            _notification.MakeCall(randomCallMessage);
+        }
+
+        // Метод для отправки случайного email
+        private void SendEmail()
+        {
+            string randomEmailMessage = _emails[_random.Next(_emails.Count)];
+            _notification.SendEmail(randomEmailMessage);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
-
-    // Реализация ICommand
-    public class RelayCommand : ICommand
-    {
-        private readonly Action _execute;
-        private readonly Func<bool> _canExecute;
-
-        public RelayCommand(Action execute, Func<bool> canExecute = null)
-        {
-            _execute = execute;
-            _canExecute = canExecute;
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add => CommandManager.RequerySuggested += value;
-            remove => CommandManager.RequerySuggested -= value;
-        }
-
-        public bool CanExecute(object parameter) => _canExecute == null || _canExecute();
-
-        public void Execute(object parameter) => _execute();
     }
 }
