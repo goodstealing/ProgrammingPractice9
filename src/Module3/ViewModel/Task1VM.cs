@@ -123,7 +123,6 @@ namespace Module3.ViewModel
             }
         }
 
-        // Команда для открытия окна Task2
         private RelayCommand openNewTask2;
         public RelayCommand OpenNewTask2
         {
@@ -206,12 +205,49 @@ namespace Module3.ViewModel
         }
         #endregion
 
+
+
         private void SendCenterPositionAndOpen(Window window)
         {
+            // Центрируем и показываем новое окно
             window.WindowStartupLocation = WindowStartupLocation.CenterOwner;
             window.Owner = Application.Current.MainWindow;
-            window.Show();
 
+            // Скрываем главное окно (или закрываем, если это нужно)
+            Application.Current.MainWindow.Hide();
+
+            // Показываем новое окно
+            window.Show(); // Используйте ShowDialog для модальных окон
+        }
+
+
+        private RelayCommand exitToMainCommand;
+        public RelayCommand ExitToMainCommand
+        {
+            get
+            {
+                return exitToMainCommand ?? new RelayCommand(obj =>
+                {
+                    ReturnToMain();
+                });
+            }
+        }
+
+        private void ReturnToMain()
+        {
+            // Найти текущее окно и закрыть его
+            Window currentWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.IsActive);
+
+            if (currentWindow != null)
+            {
+                // Вернуть на главное окно
+                Application.Current.MainWindow.Show();
+                Application.Current.MainWindow.Left = currentWindow.Left; // сохраняем позицию
+                Application.Current.MainWindow.Top = currentWindow.Top;
+
+                // Закрыть текущее окно
+                currentWindow.Close();
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -42,46 +42,5 @@ namespace Module3.View
                 DragMove(); // Перемещение окна
             }
         }
-
-
-        void OpenTask2_Click(object sender, RoutedEventArgs e)
-        {
-            Task2 task2 = new();
-            task2.Left = Left; task2.Top = Top;
-            task2.Show();
-            Hide();
-        }
-
-        void OpenTask3_Click(object sender, RoutedEventArgs e)
-        {
-            Task3 task3 = new();
-            task3.Left = Left; task3.Top = Top;
-            task3.Show();
-            Hide();
-        }
-
-        void OpenTask4_Click(object sender, RoutedEventArgs e)
-        {
-            Task4 task4 = new();
-            task4.Left = Left; task4.Top = Top;
-            task4.Show();
-            Hide();
-        }
-
-        void OpenTask5_Click(object sender, RoutedEventArgs e)
-        {
-            Task5 task5 = new();
-            task5.Left = Left; task5.Top = Top;
-            task5.Show();
-            Hide();
-        }
-
-        private void ExitButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new();
-            mainWindow.Show();
-            mainWindow.Left = Left; mainWindow.Top = Top;
-            Hide();
-        }
     }
 }
