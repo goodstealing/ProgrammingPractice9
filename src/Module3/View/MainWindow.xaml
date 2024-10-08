@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Module3.ViewModel"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -10,11 +11,15 @@
         Background="Transparent"
         Title="MainWindow" Height="450" Width="450">
 
+    <Window.DataContext>
+        <local:ConnectorViewModel />
+    </Window.DataContext>
+    
     <!-- Весь контент обернут в Border -->
     <Border Background="Transparent" CornerRadius="0,0,8,8" 
             BorderThickness="1.2">
 
-        <!-- Grid для основного содержимого окна -->
+        <!-- Grid основного содержимого окна -->
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -37,35 +42,27 @@
                 </Rectangle.Effect>
             </Rectangle>
 
-            <!-- Верхняя панель с заголовком и кнопками управления -->
-            <DockPanel Background="Gray" Height="30" Grid.ColumnSpan="2" VerticalAlignment="Top"
-                       Opacity="1.0"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
-
-
+            <DockPanel  MouseLeftButtonDown="MouseMove" Background="Gray" Height="30" Grid.ColumnSpan="2" VerticalAlignment="Top" Opacity="1.0" Grid.Row="0" Grid.Column="0">
                 <Button Content="X" Margin="2.5,0" Width="30" Height="20" Foreground="White" 
-                        Background="Red" DockPanel.Dock="Right" Click="CloseButton_Click"/>
+                       Background="Red" DockPanel.Dock="Right" 
+                       Command="{Binding mainViewModel.CloseCommand}"/>
 
-                <!-- Кнопка развернуть/восстановить -->
                 <Button Content="▢" Margin="2.5,0" Width="30" Height="20" Foreground="White" 
-                        Background="Gray" DockPanel.Dock="Right" Click="MaximizeButton_Click"/>
+                       Background="Gray" DockPanel.Dock="Right" 
+                       Command="{Binding mainViewModel.MaximizeCommand}"/>
 
-                <!-- Кнопка свернуть -->
                 <Button Content="–" Margin="2.5,0" Width="30" Height="20" Foreground="White" 
-                        Background="Gray" DockPanel.Dock="Right" Click="MinimizeButton_Click"/>
+                       Background="Gray" DockPanel.Dock="Right" 
+                       Command="{Binding mainViewModel.MinimizeCommand}"/>
 
-                <!-- Заголовок окна -->
                 <TextBlock Text="Module3" VerticalAlignment="Center" Foreground="White" FontSize="14" Margin="10,0,0,0"/>
             </DockPanel>
-            <Button Content="Task1" Command="{Binding OpenNewTask1}" HorizontalAlignment="Left" Margin="144,134,0,0" VerticalAlignment="Top" Width="70"/>
-            <Button Grid.Column="1" Command="{Binding OpenNewTask2}" Content="Task2" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="72"/>
-            <Button Content="Task3" Command="{Binding OpenNewTask3}" HorizontalAlignment="Left" Margin="144,179,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.635,-0.261" Width="70"/>
-            <Button Grid.Column="1" Command="{Binding OpenNewTask4}" Content="Task4" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.764,-0.261"/>
-            <Button Content="Task5" Command="{Binding OpenNewTask5}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="164,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
-
-
+            
+            <Button Content="Task1" Command="{Binding mainViewModel.OpenNewTask1}" HorizontalAlignment="Left" Margin="144,134,0,0" VerticalAlignment="Top" Width="70"/>
+            <Button Grid.Column="1" Command="{Binding mainViewModel.OpenNewTask2}" Content="Task2" HorizontalAlignment="Left" Margin="10,134,0,0" VerticalAlignment="Top" Width="72"/>
+            <Button Content="Task3" Command="{Binding mainViewModel.OpenNewTask3}" HorizontalAlignment="Left" Margin="144,179,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.635,-0.261" Width="70"/>
+            <Button Grid.Column="1" Command="{Binding mainViewModel.OpenNewTask4}" Content="Task4" HorizontalAlignment="Left" Margin="10,179,0,0" VerticalAlignment="Top" Width="72" RenderTransformOrigin="0.764,-0.261"/>
+            <Button Content="Task5" Command="{Binding mainViewModel.OpenNewTask5}" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="164,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
         </Grid>
     </Border>
 </Window>
