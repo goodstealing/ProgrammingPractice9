@@ -10,20 +10,20 @@ namespace Module3.ViewModel
     {
         #region Команды открытия окон
 
-        private readonly RelayCommand? openNewTask1;
-        public RelayCommand OpenNewTask1 => openNewTask1 ?? new RelayCommand(_ => OpenTask1());
+        private RelayCommand? openNewTask1;
+        public RelayCommand OpenNewTask1 => openNewTask1 ??= new RelayCommand(OpenTask1);
 
-        private readonly RelayCommand? openNewTask2;
-        public RelayCommand OpenNewTask2 => openNewTask2 ?? new RelayCommand(_ => OpenTask2());
+        private RelayCommand? openNewTask2;
+        public RelayCommand OpenNewTask2 => openNewTask2 ??= new RelayCommand(OpenTask2);
 
-        private readonly RelayCommand? openNewTask3;
-        public RelayCommand OpenNewTask3 => openNewTask3 ?? new RelayCommand(_ => OpenTask3());
+        private RelayCommand? openNewTask3;
+        public RelayCommand OpenNewTask3 => openNewTask3 ??= new RelayCommand(OpenTask3);
 
-        private readonly RelayCommand? openNewTask4;
-        public RelayCommand OpenNewTask4 => openNewTask4 ?? new RelayCommand(_ => OpenTask4());
+        private RelayCommand? openNewTask4;
+        public RelayCommand OpenNewTask4 => openNewTask4 ??= new RelayCommand(OpenTask4);
 
-        private readonly RelayCommand? openNewTask5;
-        public RelayCommand OpenNewTask5 => openNewTask5 ?? new RelayCommand(_ => OpenTask5());
+        private RelayCommand? openNewTask5;
+        public RelayCommand OpenNewTask5 => openNewTask5 ??= new RelayCommand(OpenTask5);
 
         #endregion
 
@@ -34,6 +34,7 @@ namespace Module3.ViewModel
             Task1 task1Window = new();
             SendCenterPositionAndOpen(task1Window);
         }
+
 
         private void OpenTask2()
         {
@@ -72,8 +73,8 @@ namespace Module3.ViewModel
 
         #region Команда возврата на главное окно
 
-        private readonly RelayCommand? exitToMainCommand;
-        public RelayCommand ExitToMainCommand => exitToMainCommand ?? new RelayCommand(_ => ReturnToMain());
+        private RelayCommand? exitToMainCommand;
+        public RelayCommand ExitToMainCommand => exitToMainCommand ??= new RelayCommand(ReturnToMain);
 
         private static void ReturnToMain()
         {
@@ -100,10 +101,9 @@ namespace Module3.ViewModel
 
         public MainViewModel()
         {
-            CloseCommand = new RelayCommand(_ => Close());
-            MinimizeCommand = new RelayCommand(_ => Minimize());
-            MaximizeCommand = new RelayCommand(_ => Maximize());
-
+            CloseCommand = new RelayCommand(Close);
+            MinimizeCommand = new RelayCommand(Minimize);
+            MaximizeCommand = new RelayCommand(Maximize);
         }
 
         private void Close() => Application.Current.Shutdown();

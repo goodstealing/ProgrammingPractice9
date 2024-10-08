@@ -11,10 +11,12 @@ namespace Module3.ViewModel
     public class ConnectorViewModel : INotifyPropertyChanged
     {
         public Task1VM Task1VM { get; set; }
+        public Task2VM Task2VM { get; set; }
         public MainViewModel mainViewModel { get; set; }
         public ConnectorViewModel() 
         {
             Task1VM = new Task1VM();
+            Task2VM = new Task2VM();
             mainViewModel = new MainViewModel(); 
         }
 
