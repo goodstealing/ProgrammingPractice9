@@ -130,10 +130,10 @@ namespace Module3.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
+        
         protected void NotifyPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

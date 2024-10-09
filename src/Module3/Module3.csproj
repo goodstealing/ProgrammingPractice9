@@ -15,4 +15,8 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Model\Task4\" />
+  </ItemGroup>
+
 </Project>
