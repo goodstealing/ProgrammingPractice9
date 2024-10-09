@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Module1
+namespace Module2
 {
     internal class Program
     {
@@ -56,7 +56,7 @@ namespace Module1
             string className = $"Task{taskNumber}"; // Формирование имени класса
 
             // Рефлексия для поиска и вызова метода Execute
-            Type? taskType = Type.GetType($"Module1.{className}");
+            Type? taskType = Type.GetType($"Module2.{className}");
             if (taskType != null)
             {
                 var method = taskType.GetMethod("Execute");
